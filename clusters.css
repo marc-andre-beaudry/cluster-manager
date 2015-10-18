@@ -1,0 +1,14 @@
+.cluster-heading {
+  height:35px;
+}
+
+#instancesTables td {
+  vertical-align: middle;
+}
+
+.status-label {
+  display: block;
+  height: 30px;
+  line-height: 25px;
+  margin-bottom: 0px;
+}
