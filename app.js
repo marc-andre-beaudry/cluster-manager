@@ -69,6 +69,11 @@ App.controller('clustersController', function($scope, $http, $location, $routePa
 
 App.controller('createController', function($scope, $http, $location, $routeParams, $route, $timeout) {
 
+	$scope.identity = { proid:"taidsd", ownerId:"beaudmar", name:"ivision", id:1 };
+	$scope.hardware = { cpu:800, ram:8192, storage:300, priority:50 };
+	$scope.options = { dataNodes:3, forestReplicas:2, mode:"Hybrid" };
+	$scope.location = [];
+	
 	$scope.isCreating = false;
 	$scope.create = function() {
 		$scope.isCreating = true;

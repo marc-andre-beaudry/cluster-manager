@@ -12,3 +12,7 @@
   line-height: 25px;
   margin-bottom: 0px;
 }
+
+.create-addon {
+ min-width: 50px;
+}
