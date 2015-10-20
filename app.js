@@ -20,11 +20,30 @@ App.config([ '$routeProvider', function($routeProvider) {
 
 App.controller('clustersController', function($scope, $http, $location, $routeParams, $route, $timeout) {
 
+	$scope.onlyMine = true;
 	$scope.isLoadingData = false;
+	$scope.showAdvancedSettings = false;
+	$scope.clusters = [];
+
+	var receivedClusters = [];
+
+	$scope.filter = function() {
+		$scope.clusters = [];
+		receivedClusters.forEach(function(entry) {
+			if(entry.ownerId == "beaudmar" || !$scope.onlyMine) {
+				$scope.clusters.push(entry);
+			}
+		});
+	}
+
+	$scope.$watch('onlyMine', function(newVal, oldVal){
+		$scope.filter();
+	}, true);
+
 	$scope.loadData = function() {
 		$scope.isLoadingData = true;
 		$timeout(function() {
-            $scope.clusters = [
+			receivedClusters = [
 				{
 					proid:"taidsd", 
 					ownerId:"beaudmar", 
@@ -58,8 +77,26 @@ App.controller('clustersController', function($scope, $http, $location, $routePa
 						disk:"200GB",
 						priority:50
 					}
+				},
+				{
+					proid:"taidsd", 
+					ownerId:"colleser", 
+					name:"ivision", 
+					id:1, 
+					instances:[
+						{id:1, hostname:"igrid935.ms.com", cell:"vi-001-solid", status:"Healthy"}, 
+						{id:2, hostname:"igrid936.ms.com", cell:"vi-002-fluid", status:"NotHealthy"},
+						{id:3, hostname:"igrid937.ms.com", cell:"vi-003-fluid", status:"Offline"}
+					],
+					specs: {
+						cpu:"200%",
+						ram:"48GB",
+						disk:"200GB",
+						priority:50
+					}
 				}
 			];
+			$scope.filter();
 			$scope.isLoadingData = false;
         }, 1000);
 	}

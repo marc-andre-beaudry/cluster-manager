@@ -8,8 +8,14 @@
       <div class="pull-right">
         <div class="checkbox" style="display:inline; margin-right:10px;">
           <label>
-            <input ng-disabled="isLoadingData" type="checkbox" value=""></input>
-            Only mine
+            <input ng-disabled="isLoadingData" type="checkbox" ng-model="onlyMine" ></input>
+              Only mine
+          </label>
+        </div>
+        <div class="checkbox" style="display:inline; margin-right:10px;">
+          <label>
+            <input ng-disabled="isLoadingData" type="checkbox" ng-model="showAdvancedSettings"></input>
+              Admin Options
           </label>
         </div>
         <button class="btn btn-default" type="submit" style="width: 100px;" ng-disabled="isLoadingData" ng-click="loadData()">
@@ -42,6 +48,10 @@
         <th>Hostname</th>
         <th>Cell</th>
         <th width="150px">Status</th>
+        <th width="150px">Console</th>
+        <th width="150px">Admin</th>
+        <th width="150px">Manage</th>
+        <th ng-show="showAdvancedSettings" width="150px">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -53,6 +63,33 @@
           <label class="label label-success status-label" ng-show="instance.status == 'Healthy'">Healthy</label>
           <label class="label label-warning status-label" ng-show="instance.status == 'NotHealthy'">Not Healthy</label>
           <label class="label label-danger status-label" ng-show="instance.status == 'Offline'">Offline</label>
+        </td>
+        <td>
+          <a href="http://google.com" type="button" class="btn btn-primary btn-block">
+            Console
+          </a>
+        </td>
+         <td>
+          <a href="http://google.com" type="button" class="btn btn-primary btn-block">
+            Admin
+          </a>
+        </td>
+         <td>
+          <a href="http://google.com" type="button" class="btn btn-primary btn-block">
+            Manage
+          </a>
+        </td>
+        <td ng-show="showAdvancedSettings">
+          <div ng-show="instance.status == 'Offline'" >
+            <button type="button" class="btn btn-success btn-block">
+            Start
+            </button>
+          </div>
+          <div>
+            <button ng-show="instance.status == 'Healthy' || instance.status == 'NotHealthy'" type="button" class="btn btn-danger btn-block">
+            Stop
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>
