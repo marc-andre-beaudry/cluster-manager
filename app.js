@@ -20,6 +20,7 @@ App.config([ '$routeProvider', function($routeProvider) {
 
 App.controller('clustersController', function($scope, $http, $location, $routeParams, $route, $timeout) {
 
+	$scope.ownerId = "beaudmar";
 	$scope.onlyMine = true;
 	$scope.isLoadingData = false;
 	$scope.showAdvancedSettings = false;
@@ -30,7 +31,7 @@ App.controller('clustersController', function($scope, $http, $location, $routePa
 	$scope.filter = function() {
 		$scope.clusters = [];
 		receivedClusters.forEach(function(entry) {
-			if(entry.ownerId == "beaudmar" || !$scope.onlyMine) {
+			if(entry.ownerId == $scope.ownerId || !$scope.onlyMine) {
 				$scope.clusters.push(entry);
 			}
 		});
@@ -101,6 +102,22 @@ App.controller('clustersController', function($scope, $http, $location, $routePa
         }, 1000);
 	}
 	$scope.loadData();
+		
+	$scope.startInstance = function(instance) {
+		instance.actionInProgress = true;
+		$timeout(function() {
+			instance.actionInProgress = false;
+			instance.status = "NotHealthy";
+        }, 1000);
+	}
+	
+	$scope.stopInstance = function(instance) {
+		instance.actionInProgress = true;
+		$timeout(function() {
+			instance.actionInProgress = false;
+			instance.status = "Offline";
+        }, 1000);
+	}
 });
 
 
