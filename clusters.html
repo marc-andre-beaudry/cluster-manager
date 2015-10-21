@@ -8,13 +8,13 @@
         <div class="checkbox" style="display:inline; margin-right:10px;">
           <label>
             <input ng-disabled="isLoadingData" type="checkbox" ng-model="onlyMine" ></input>
-              Only mine
+            Only mine
           </label>
         </div>
         <div class="checkbox" style="display:inline; margin-right:10px;">
           <label>
             <input ng-disabled="isLoadingData" type="checkbox" ng-model="showAdvancedSettings"></input>
-              Admin Options
+            Admin Options
           </label>
         </div>
         <button class="btn btn-default" type="submit" style="width: 100px;" ng-disabled="isLoadingData" ng-click="loadData()">
@@ -33,70 +33,70 @@
         <h4>{{cluster.proid}}.{{cluster.ownerId}}.{{cluster.name}}.{{cluster.id}}</h4>
       </div>
       <div class="pull-right">
-		<button ng-show="showAdvancedSettings" type="button" style="width: 100px;" class="btn btn-success" ng-click="getCreateLBScript(cluster)">
-			<span>LB Create</span>
-		</button>
-		<button ng-show="showAdvancedSettings" type="button" style="width: 100px;" class="btn btn-danger" ng-click="deleteCluster(cluster)" ng-disabled="cluster.actionInProgress">
-			<span ng-show="!cluster.actionInProgress">Delete</span>
-			<span ng-show="cluster.actionInProgress">Deleting...</span>
-		</button>
-      </div>
-    </div>
-  </div>
-  <!-- Table -->
-  <table id="instancesTables" class="table table-condensed table-striped table-bordered">
-    <thead>
-      <tr>
-        <th width="30px" style="text-align: center;">#</th>
-        <th>Hostname</th>
-        <th>Cell</th>
-        <th width="150px">Status</th>
-        <th colspan="3">Endpoints</th>
-        <th ng-show="showAdvancedSettings" width="150px">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="instance in cluster.instances">
-        <td>{{instance.id}}</td>
-        <td>{{instance.hostname}}</td>
-        <td>{{instance.cell}}</td>
-        <td width="150px" >
-          <label class="label label-success status-label" ng-show="instance.status == 'Healthy'">Healthy</label>
-          <label class="label label-warning status-label" ng-show="instance.status == 'NotHealthy'">Not Healthy</label>
-          <label class="label label-danger status-label" ng-show="instance.status == 'Offline'">Offline</label>
-        </td>
-        <td width="150px" >
-          <a href="http://google.com" type="button" class="btn btn-primary btn-block">
-            Console
-          </a>
-        </td>
-         <td width="150px" >
-          <a href="http://google.com" type="button" class="btn btn-primary btn-block">
-            Admin
-          </a>
-        </td>
-         <td width="150px">
-          <a href="http://google.com" type="button" class="btn btn-primary btn-block">
-            Manage
-          </a>
-        </td>
-        <td ng-show="showAdvancedSettings">
-          <div ng-show="instance.status == 'Offline'" >
-            <button type="button" class="btn btn-success btn-block" ng-click="startInstance(instance)" ng-disabled="instance.actionInProgress">
-				<span ng-show="!instance.actionInProgress">Start</span>
-				<span ng-show="instance.actionInProgress">Starting...</span>
-            </button>
-          </div>
-          <div ng-show="instance.status == 'Healthy' || instance.status == 'NotHealthy'">
-            <button type="button" class="btn btn-danger btn-block" ng-click="stopInstance(instance)" ng-disabled="instance.actionInProgress">
-				<span ng-show="!instance.actionInProgress">Stop</span>
-				<span ng-show="instance.actionInProgress">Stopping...</span>
-            </button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        <button ng-show="showAdvancedSettings" type="button" style="width: 100px;" class="btn btn-success" ng-click="getCreateLBScript(cluster)">
+         <span>LB Create</span>
+       </button>
+       <button ng-show="showAdvancedSettings" type="button" style="width: 100px;" class="btn btn-danger" ng-click="deleteCluster(cluster)" ng-disabled="cluster.actionInProgress">
+         <span ng-show="!cluster.actionInProgress">Delete</span>
+         <span ng-show="cluster.actionInProgress">Deleting...</span>
+       </button>
+     </div>
+   </div>
+ </div>
+ <!-- Table -->
+ <table id="instancesTables" class="table table-condensed table-striped table-bordered">
+  <thead>
+    <tr>
+      <th width="30px" style="text-align: center;">#</th>
+      <th>Hostname</th>
+      <th>Cell</th>
+      <th width="150px">Status</th>
+      <th colspan="3">Endpoints</th>
+      <th ng-show="showAdvancedSettings" width="150px">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="instance in cluster.instances">
+      <td>{{instance.id}}</td>
+      <td>{{instance.hostname}}</td>
+      <td>{{instance.cell}}</td>
+      <td width="150px" >
+        <label class="label label-success status-label" ng-show="instance.status == 'Healthy'">Healthy</label>
+        <label class="label label-warning status-label" ng-show="instance.status == 'NotHealthy'">Not Healthy</label>
+        <label class="label label-danger status-label" ng-show="instance.status == 'Offline'">Offline</label>
+      </td>
+      <td width="150px" >
+        <a href="http://google.com" type="button" class="btn btn-primary btn-block">
+          Console
+        </a>
+      </td>
+      <td width="150px" >
+        <a href="http://google.com" type="button" class="btn btn-primary btn-block">
+          Admin
+        </a>
+      </td>
+      <td width="150px">
+        <a href="http://google.com" type="button" class="btn btn-primary btn-block">
+          Manage
+        </a>
+      </td>
+      <td ng-show="showAdvancedSettings">
+        <div ng-show="instance.status == 'Offline'" >
+          <button type="button" class="btn btn-success btn-block" ng-click="startInstance(instance)" ng-disabled="instance.actionInProgress">
+            <span ng-show="!instance.actionInProgress">Start</span>
+            <span ng-show="instance.actionInProgress">Starting...</span>
+          </button>
+        </div>
+        <div ng-show="instance.status == 'Healthy' || instance.status == 'NotHealthy'">
+          <button type="button" class="btn btn-danger btn-block" ng-click="stopInstance(instance)" ng-disabled="instance.actionInProgress">
+            <span ng-show="!instance.actionInProgress">Stop</span>
+            <span ng-show="instance.actionInProgress">Stopping...</span>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 </div>
 
 <div class="spinner" ng-show="isLoadingData">

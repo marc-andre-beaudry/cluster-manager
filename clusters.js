@@ -38,15 +38,15 @@ App.controller('clustersController', function($scope, $http, $location, $routePa
 				$scope.isLoadingData = false;
 				$scope.$apply();	
 			}
-		);			
+			);			
 	}
-		
+	
 	$scope.startInstance = function(instance) {
 		// TODO Replace this because browser dialog is not shiny.
 		if(!confirm("Do you want to start that instance?")) {
 			return;
 		}
-	
+		
 		instance.actionInProgress = true;
 		clusterApi.startInstance(instance).then(
 			//success callback
@@ -60,7 +60,7 @@ App.controller('clustersController', function($scope, $http, $location, $routePa
 				instance.actionInProgress = false;				
 				$scope.$apply();	
 			}
-		);
+			);
 	}
 	
 	$scope.stopInstance = function(instance) {
@@ -68,7 +68,7 @@ App.controller('clustersController', function($scope, $http, $location, $routePa
 		if(!confirm("Do you want to stop that instance?")) {
 			return;
 		}
-	
+		
 		instance.actionInProgress = true;
 		clusterApi.stopInstance(instance).then(
 			//success callback
@@ -82,7 +82,7 @@ App.controller('clustersController', function($scope, $http, $location, $routePa
 				instance.actionInProgress = false;
 				$scope.$apply();	
 			}
-		);
+			);
 	}
 	
 	$scope.deleteCluster = function(cluster) {
@@ -102,18 +102,18 @@ App.controller('clustersController', function($scope, $http, $location, $routePa
 						receivedClusters[i].name == cluster.name && 
 						receivedClusters[i].id == cluster.id) {
 						receivedClusters.splice(i, 1);
-					}
 				}
-				$scope.filter();
-				cluster.actionInProgress = false;
-				$scope.$apply();	
-			}, 
+			}
+			$scope.filter();
+			cluster.actionInProgress = false;
+			$scope.$apply();	
+		}, 
 			//failure callback
 			function(data, status) {
 				cluster.actionInProgress = false;
 				$scope.$apply();	
 			}
-		);
+			);
 	}
 	
 	$scope.getCreateLBScript = function(cluster) {
@@ -122,9 +122,9 @@ App.controller('clustersController', function($scope, $http, $location, $routePa
 				confirm("asdasdasd \n asdasdasd \n asdasdasd \n asdasdasd \n asdasdasd \n");
 			},
 			function(data, status) {
-			
+				
 			}
-		);
+			);
 	}
 	$scope.loadData();
 });

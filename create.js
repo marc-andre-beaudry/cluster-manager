@@ -1,22 +1,31 @@
-App.controller('createController', function($scope, $http, $location, $routeParams, $route, $timeout) {
+App.controller('createController', function($scope, $http, $location, $routeParams, $route, $timeout, clusterApi) {
 
 	$scope.identity = { proid:"taidsd", ownerId:"beaudmar", name:"ivision", id:1 };
 	$scope.hardware = { cpu:800, ram:8192, storage:300, priority:50 };
 	$scope.options = { dataNodes:3, forestReplicas:2, mode:"Hybrid" };
 	$scope.locations = [];
+	$scope.config = {
+		name:"Marklogic",
+		command:"/beaudmar/ml_start.pl",
+		arguments:[
+			{ name:"--forest_replica", value:"3" }, 
+			{ name:"--marklogic", value:"8.0.3" },
+			{ name:"--mode", value:"hybrid", allowedValues:["hybrid", "local", "nfs"]} 
+		]
+	}
 
 	$scope.$watch('options.dataNodes', function(newVal, oldVal){
 		var oldArray = $scope.locations;
 		$scope.locations = [];
-    	for(var i = 0; i < $scope.options.dataNodes; i++) {
+		for(var i = 0; i < $scope.options.dataNodes; i++) {
 			if(oldArray[i] !== undefined) {
 				$scope.locations.push(oldArray[i]);
 			} else {
 				var newLocation = { name: $scope.identity.proid + "." + $scope.identity.ownerId + "." + $scope.identity.name + "." + $scope.identity.id + "." + (i + 1), 
-									location: "vi-001-solid" };
+				location: "vi-001-solid" };
 				$scope.locations.push(newLocation);
 			}
-    	}
+		}
 	}, true);
 	
 	$scope.isCreating = false;
@@ -25,6 +34,6 @@ App.controller('createController', function($scope, $http, $location, $routePara
 		console.log($scope.options);
 		$timeout(function() {
 			$scope.isCreating = false;
-        }, 1000);
+		}, 1000);
 	}
 });
