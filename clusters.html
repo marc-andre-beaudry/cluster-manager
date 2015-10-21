@@ -33,9 +33,13 @@
         <h4>{{cluster.proid}}.{{cluster.ownerId}}.{{cluster.name}}.{{cluster.id}}</h4>
       </div>
       <div class="pull-right">
-         <button type="button" style="width:100px;" class="btn btn-primary btn-block" data-toggle="modal" data-target="#stopInstanceModal">
-          Advanced
-        </button>
+		<button ng-show="showAdvancedSettings" type="button" style="width: 100px;" class="btn btn-success" ng-click="getCreateLBScript(cluster)">
+			<span>LB Create</span>
+		</button>
+		<button ng-show="showAdvancedSettings" type="button" style="width: 100px;" class="btn btn-danger" ng-click="deleteCluster(cluster)" ng-disabled="cluster.actionInProgress">
+			<span ng-show="!cluster.actionInProgress">Delete</span>
+			<span ng-show="cluster.actionInProgress">Deleting...</span>
+		</button>
       </div>
     </div>
   </div>
@@ -47,7 +51,7 @@
         <th>Hostname</th>
         <th>Cell</th>
         <th width="150px">Status</th>
-        <th width="150px" colspan="3">Shortcuts</th>
+        <th colspan="3">Endpoints</th>
         <th ng-show="showAdvancedSettings" width="150px">Action</th>
       </tr>
     </thead>
@@ -56,29 +60,29 @@
         <td>{{instance.id}}</td>
         <td>{{instance.hostname}}</td>
         <td>{{instance.cell}}</td>
-        <td>
+        <td width="150px" >
           <label class="label label-success status-label" ng-show="instance.status == 'Healthy'">Healthy</label>
           <label class="label label-warning status-label" ng-show="instance.status == 'NotHealthy'">Not Healthy</label>
           <label class="label label-danger status-label" ng-show="instance.status == 'Offline'">Offline</label>
         </td>
-        <td>
+        <td width="150px" >
           <a href="http://google.com" type="button" class="btn btn-primary btn-block">
             Console
           </a>
         </td>
-         <td>
+         <td width="150px" >
           <a href="http://google.com" type="button" class="btn btn-primary btn-block">
             Admin
           </a>
         </td>
-         <td>
+         <td width="150px">
           <a href="http://google.com" type="button" class="btn btn-primary btn-block">
             Manage
           </a>
         </td>
         <td ng-show="showAdvancedSettings">
           <div ng-show="instance.status == 'Offline'" >
-            <button type="button" class="btn btn-success btn-block" ng-click="startInstance(instance)" data-target="#startInstanceModal" data-toggle="modal">
+            <button type="button" class="btn btn-success btn-block" ng-click="startInstance(instance)" ng-disabled="instance.actionInProgress">
 				<span ng-show="!instance.actionInProgress">Start</span>
 				<span ng-show="instance.actionInProgress">Starting...</span>
             </button>
@@ -93,7 +97,6 @@
       </tr>
     </tbody>
   </table>
-  <div class="panel-footer">Panel footer</div>
 </div>
 
 <div class="spinner" ng-show="isLoadingData">
